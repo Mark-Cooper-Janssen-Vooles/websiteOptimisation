@@ -35,7 +35,7 @@ Javascript => Style => Layout => Paint => Composite
 9. browser paints these layers individually (composite)
   - user can now see everything on the page
 
-Style Calculations:
+#### Style Calculations
 - HTML parsing algorithm:
   - Conversion
     - browser reads raw bytes from html and transfers then to characters (i.e. html tags `<body></body>`)
@@ -58,7 +58,7 @@ Style Calculations:
     - elements with `display: none;` will be removed from render tree
     - if theres a pseudo element created by CSS, but it is visible, that will be added to the render tree 
 
-- To see this in real time:
+- To see this in real time, using 'profiling':
   - open a chrome window and the dev tools + select 'performance tab'
     - look in options and make sure CPU and network throttling is off 
   - Hit record and load a page, for example: https://markcooperjanssen-vooles.netlify.app/ (i know this one has html and css)
@@ -81,3 +81,16 @@ Style Calculations:
   - when we go into settings and throttle the CPU we can simulate older mobile devices 
     - when throttling, parse style sheet / recalculate style / layout takes a lot longer: this is critical render path blocking, so the user sees nothing at this point
     - the FP (first paint) is when the user sees the first pixel on the screen
+
+#### Layout 
+
+- Layout is the process that calculates the geometry of the elements, width / height etc 
+- Converted into pixels, i.e. 1rem converted into pixels
+- Output of layout process is 'box model' 
+- Browser begins at the root of the render tree
+  - one element can affect other 
+  - width of the parent element effects childs with for example 
+- You can also find 'layout' when using chrome dev tool profiling 
+  - layout creates a box model for each element 
+
+#### Paint 
