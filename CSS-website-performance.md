@@ -105,3 +105,7 @@ Javascript => Style => Layout => Paint => Composite
 
 ## Optimising Critical Rendering Path
 
+---
+
+
+NOTE: when done, add to readme.md in summary form.
