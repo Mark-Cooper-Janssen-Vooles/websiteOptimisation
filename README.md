@@ -83,7 +83,6 @@ Javascript => Style => Layout => Paint => Composite
     - the FP (first paint) is when the user sees the first pixel on the screen
 
 #### Layout 
-
 - Layout is the process that calculates the geometry of the elements, width / height etc 
 - Converted into pixels, i.e. 1rem converted into pixels
 - Output of layout process is 'box model' 
@@ -94,3 +93,10 @@ Javascript => Style => Layout => Paint => Composite
   - layout creates a box model for each element 
 
 #### Paint 
+- Converting actual layout to pixels on the screen
+- Browser needs to rasterize it to paint each element 
+- to see the 'paint profiler' you need to go to settings in the performance tab, and tick 'enable advanced paint instrumentation'
+  - can now click on the green Paint bar in main, then the paint profiler tab 
+
+#### Update Layer Tree 
+
