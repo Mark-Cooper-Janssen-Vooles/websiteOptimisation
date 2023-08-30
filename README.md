@@ -57,3 +57,27 @@ Style Calculations:
     - does not have HTML / HEAD 
     - elements with `display: none;` will be removed from render tree
     - if theres a pseudo element created by CSS, but it is visible, that will be added to the render tree 
+
+- To see this in real time:
+  - open a chrome window and the dev tools + select 'performance tab'
+    - look in options and make sure CPU and network throttling is off 
+  - Hit record and load a page, for example: https://markcooperjanssen-vooles.netlify.app/ (i know this one has html and css)
+  - Stop recording 
+  - There is a summary tab down the bottom which shows information on loading, scripting, rendering, painting, system, idle
+    - loading is the network call
+    - scripting is the javascript
+    - rendering s a combination of the Parse HTML and the Parse Style sheet
+  - under the `Main` area, we can see:
+    - Parse HTML (represented in blue) - the main thread parses the html to build the DOM tree
+      - may have multiple of these
+      - note, if you click on this it will show the lines it parses. as it hits a css link in the head, it will pause and then start working on that css
+    - Parse Style Sheet 
+      - may have multiple of these (i.e. imported .css styles from other libraries etc like script tags)
+    - it then goes to 'Recalculate Style' (combines DOM and CSSOM) to build render tree
+    - it goes to layout (skip)
+  - `Network` area, you can scroll in and out to see when the files were loaded etc. the main thread will correlate with these
+    - scroll all the way out to see the whole thing
+
+  - when we go into settings and throttle the CPU we can simulate older mobile devices 
+    - when throttling, parse style sheet / recalculate style / layout takes a lot longer: this is critical render path blocking, so the user sees nothing at this point
+    - the FP (first paint) is when the user sees the first pixel on the screen
