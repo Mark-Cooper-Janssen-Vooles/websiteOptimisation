@@ -135,8 +135,33 @@ Javascript => Style => Layout => Paint => Composite
 - to see re-paints, open dev tools => 3 dots => more tools => rendering. this opens a tab in the console area, click on the paint flashing checkbox
   - it flashes green what areas need to be repainted
 - open the layers tab and click on something that has repainted - you can see the "paint count" attribute 
+  - in this example it renders 65 times
 
 ## Performance Analysis 
+- initially .sidebar is at `position: absolute`, and .sidebar.is-open is `left: 0px`, he adds `transform: translateX(0)` to the .sidebar class, and changes .sidebar.is-open to `transform: translateX(450px);`, increases the frame rate drastically.
+- now its rendering 35 times, but this can be lessened using layers 
+
+### How layers work 
+- we can use layers now to render it twice 
+  - in general, creating layers is an automated process - leave it to the browser
+  - if you're having a paint issue, you may want to promote an element to its own layer 
+
+#### Creating a layer 
+- best way is to use the `will-change: transform;` property
+  - supported by all new browsers
+  - hack for older browsers: `transform: translateZ(0);`
+- now the paint count is 2! 
+- if he adds the `will-change: transform;` to the body, it makes everything its own layer.
+  - this slows the page a lot, because we have thousands of layers - the page becomes very slow
+  - theres a trade off between creating layers and reducing paint time 
+
+- Promote layers only when it makes sense 
+- Avoid the paint problem
+- Let the browser manage layers 
+- Layer management and compositing are not free 
+- Never promote elements without profiling (using the browser tools)
+
+
 
 
 
