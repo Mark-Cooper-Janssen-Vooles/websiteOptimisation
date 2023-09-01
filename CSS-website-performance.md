@@ -105,6 +105,41 @@ Javascript => Style => Layout => Paint => Composite
 
 ## Optimising Critical Rendering Path
 
+### Frame Rate 
+- visual changes like scrolling, animations, etc. The browser will render a new frame. Most screens render 60 frames per second, and we need to match that. 
+- For a smooth animation, we only have about 12ms per frame. If it takes longer than this, the frame rate will drop. 
+- in devtools => performance, once you have done a recording you can see the 'frames' section which shows how long each frame took to load. 
+- on windows, CTRL + SHIFT + P and type 'frames per seconds' to open this box, which will show the frame rate
+
+### The performance of style calculation - Optimisation
+- the number of elements is important, as well as less styles 
+- achieved by writing less / more efficient CSS 
+  - if you see websites with styles constantly overwriting previous styles, this will slow everything
+  - its got new CSS fixing old CSS 
+  - ideally use modual CSS 
+- more specific selector requires more work
+````js
+<nav id="header">
+  <ul class="sidebar">
+    <li class="list_item">item 1</li>
+  </ul>
+</nav>
+````
+  - the above `li` element is possible to select in many ways.
+    - e.g. with the class `.list_item {}` or with a more complex selector like this: `nav#header ul.sidebar li {}`
+      - in the second case, the browser finds all li elements, then all the ones with the sidebar class, then the ones with the nav/header id. this takes more work!
+    - the first li selector `.list_item {}` is way faster. 
+    - in general, the browser does selector matching very quickly though. optimising layout and paint gives us more benefits
+  
+## Paint Profile 
+- to see re-paints, open dev tools => 3 dots => more tools => rendering. this opens a tab in the console area, click on the paint flashing checkbox
+  - it flashes green what areas need to be repainted
+- open the layers tab and click on something that has repainted - you can see the "paint count" attribute 
+
+## Performance Analysis 
+
+
+
 ---
 
 
