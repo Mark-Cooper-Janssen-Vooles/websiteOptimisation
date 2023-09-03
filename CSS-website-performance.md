@@ -184,5 +184,14 @@ Javascript => Style => Layout => Paint => Composite
 - we don't want to wait until all files are downloaded before we show something to the user on the screen, and we want to do this in under 2 seconds
 
 ### Parser Blocking JS 
+- When the HTML file finds the script tag, it blocks the parsing by default and fetches the JS.
+- Syncronus scripts in the header of the HTML block the page from rendering until they finish 
+- One option is to make the script async: `<script async src="scripts/script.js"></script>`
+  - you can only use async if your script doesn't change the DOM structure (stuff like react does!)
+  - theres also a common rule to put the script tag just before the closing body - still blocks rendering but hopefully by that point we've already constructed most of the page. 
+- Images do not block the render of the page 
+
+### Render Blocking CSS
+- 
 
 NOTE: when done, add to readme.md in summary form.
