@@ -231,7 +231,21 @@ Javascript => Style => Layout => Paint => Composite
 - be careful of using libraries like bootstrap, comes with lots of styles you won't use 
   - think about if you really need a css library. if you do, only import the files you need.
 
+### Base64
+- with base64 encoding, we increase the css file sizes 
+- avoid base64 encoding assets in the css. better to use embedded SVG directly into html 
 
+### Minification and Gzip compression
+- Network speed is the bottle neck of every application, so important to keep file sizes small
+- Minification removes:
+  - whitespaces
+  - comments
+  - non-required semicolons 
+- we should always minify a stylesheet before we deploy it 
+- things like webpack, gulp etc can do this 
+
+- Compression allows webserver to provide smaller faster sizes 
+- Gzip is incredibly good at making smaller file sizes with repetition and should always be enabled 
 
 ---
 
