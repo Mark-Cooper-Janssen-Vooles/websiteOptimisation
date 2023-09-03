@@ -189,9 +189,24 @@ Javascript => Style => Layout => Paint => Composite
 - One option is to make the script async: `<script async src="scripts/script.js"></script>`
   - you can only use async if your script doesn't change the DOM structure (stuff like react does!)
   - theres also a common rule to put the script tag just before the closing body - still blocks rendering but hopefully by that point we've already constructed most of the page. 
+
+
 - Images do not block the render of the page 
 
 ### Render Blocking CSS
+- CSS is a render blocking resource 
+- browser is as quick as your slowest CSS file (or any critical reosurce)
+- initially we just need to render the important CSS 
+- looking at the network tab:
+  1. browser downloads .html file 
+  2. comes to .css file in the header script, gets that 
+  3. there is another .css file, not imported in the .html file. its imported by the .css file!
+    - this first waits for the first .css file to download, then downloads the second
+    - instead of using an import, a better solution is to link the second .css file in the .html - then the browser will download them starting at the same time 
+
+### Non-render blocking CSS
 - 
+
+---
 
 NOTE: when done, add to readme.md in summary form.
