@@ -205,7 +205,33 @@ Javascript => Style => Layout => Paint => Composite
     - instead of using an import, a better solution is to link the second .css file in the .html - then the browser will download them starting at the same time 
 
 ### Non-render blocking CSS
-- 
+- better to render only the CSS you need
+  - for example, if you have CSS for a mobile device vs for a desktop 
+  - split the css from one large file into smaller ones and put them in the .html header 
+````js
+<head>
+  <link href="style.css" rel="stylesheet"> // this stylesheet is render blocking always
+    <link href="print.css" rel="stylesheet" media="print"> // used only for print, not render blocking anymore
+  <link href="mobile.css" rel="stylesheet" media="screen and (max-width: 768px)"> // ONLY rendered in mobile view, when the screen is less than 768px. not render blocking for large screens
+  <link href="portrait.css" rel="stylesheet" media="all and (orientation: portrait)"> // style may or may not be render blocking depending on orientation of device 
+</head>
+````
+
+### Unused Styles 
+- Remove unused styles. likely there are some not used 
+- online tools can help us determine unused styles 
+- chrome dev tools => 3 dots => more tools => coverage => click the icon to reload
+  - click on one of the URLs, the red section shows unused styles - we can delete these 
+- cutting down unused files makes the site:
+  - more reliable
+  - easier to maintain
+  - simpler to debug 
+  - reduces the number of critical bytes
+  - optimise critical rendering path
+- be careful of using libraries like bootstrap, comes with lots of styles you won't use 
+  - think about if you really need a css library. if you do, only import the files you need.
+
+
 
 ---
 
