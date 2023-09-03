@@ -1,4 +1,4 @@
-## CSS Impact
+# CSS Impact
 The critical rendering path is the sequence of steps the browser goes through to convert HTML, CSS and Javascript into pixels on the screen.
 By focusing on CSS we can perform runtime performance 
 
@@ -12,7 +12,7 @@ Why decrease load time?
 - "Yahoo increased traffic by 9% for each 400ms of improvement in load time" - wpostats.com
 - "Amazon saw that every 100ms increase in load time resulted in a 1% decrease in revenue" 
 
-### Browser Rendering Pipeline 
+## Browser Rendering Pipeline 
 
 Javascript => Style => Layout => Paint => Composite
 
@@ -131,17 +131,17 @@ Javascript => Style => Layout => Paint => Composite
     - the first li selector `.list_item {}` is way faster. 
     - in general, the browser does selector matching very quickly though. optimising layout and paint gives us more benefits
   
-## Paint Profile 
+### Paint Profile 
 - to see re-paints, open dev tools => 3 dots => more tools => rendering. this opens a tab in the console area, click on the paint flashing checkbox
   - it flashes green what areas need to be repainted
 - open the layers tab and click on something that has repainted - you can see the "paint count" attribute 
   - in this example it renders 65 times
 
-## Performance Analysis 
+### Performance Analysis 
 - initially .sidebar is at `position: absolute`, and .sidebar.is-open is `left: 0px`, he adds `transform: translateX(0)` to the .sidebar class, and changes .sidebar.is-open to `transform: translateX(450px);`, increases the frame rate drastically.
 - now its rendering 35 times, but this can be lessened using layers 
 
-### How layers work 
+#### How layers work 
 - we can use layers now to render it twice 
   - in general, creating layers is an automated process - leave it to the browser
   - if you're having a paint issue, you may want to promote an element to its own layer 
@@ -161,11 +161,28 @@ Javascript => Style => Layout => Paint => Composite
 - Layer management and compositing are not free 
 - Never promote elements without profiling (using the browser tools)
 
+#### Older Browsers
+- different browser engines and older browsers may handle animations in different ways 
+- using the paint flashing option, interact with and scroll the page to see if there are painting issues 
+  - promote any issues to their own layers, and see if the FPS is reduced 
 
-
+#### Properties impact 
+- different css properties have a different effect on the browser 
+- how do we see what will be affected and how? 
+  - you can use profiling
+  - you can use csstriggers.com to see what will be triggered 
+    - this has information on each property, can go through them and see the transform one does not affect the paint
 
 
 ---
 
+## Optimising Critical Resources and Critical Bytes
+
+- we haven't looked at the network speed yet
+  - this is the first step, download time
+  - a critical resource is a resource that could block the initial rendering of the page 
+- we don't want to wait until all files are downloaded before we show something to the user on the screen, and we want to do this in under 2 seconds
+
+### Parser Blocking JS 
 
 NOTE: when done, add to readme.md in summary form.
