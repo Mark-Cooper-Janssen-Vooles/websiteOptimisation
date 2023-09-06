@@ -5,6 +5,8 @@
   - [Measuring web performance](#about-measuring-web-performance)
   - [Loading Performance metrics](#loading-performance-metrics)
   - [Performance Budgets](#performance-budgets)
+  - [Performance Goals](#perfomance-goals)
+  - [Establishing Testing conditions](#establishing-testing-conditions)
 
 ## What is web performance? 
 
@@ -154,4 +156,19 @@ When measuirng performance, draw on:
 - What should the performance budget be? 
   - performance goals are vital, but performance budgets are more about achieving regression. i.e. whatever the live websites metrics are right now
   - i.e. metrics should never get worse, only better! you can make it whatever the worst was over the last 2 week period.
+
+### Perfomance Goals 
+- how fast do users expect websites to load? this is changed, but ideally less than 8 seconds
+  - 49% of all users expect websites to load less than 2 seconds, 80% of users want an instant load 
+- what does 'instant' load look like?
+  - 100-200ms 
+- google has set 100ms as the goal for an ideal wait time
+  - but this is unrealistic for most websites, and load time isn't the best metric
+
+- better metrics are speed index, first contentful paint and time to interactive
+  - google recommends on slow 3g mid-range (slowish) mobile devices: 
+    - complete paint in 2-3 seconds, and have it interactive under 5 seconds. 
+- many of todays most popular websites don't reach this however: ebay, yahoo, apple, cnn for examples. 
+
+### Establishing Testing Conditions
 - 
