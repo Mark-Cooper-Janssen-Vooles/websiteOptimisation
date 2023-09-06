@@ -1,5 +1,9 @@
 # Building Faster Websites: Web Performance 
 
+- [How browsers load websites](#how-browsers-load-websites)
+- [Measuring web performance](#about-measuring-web-performance)
+- 
+
 ## What is web performance? 
 
 Web Perfomance optimisation
@@ -22,6 +26,8 @@ Web performance also includes things like
 
 
 ## Measuring web performance
+
+### How browsers load websites 
 - **HTTP Request:** going to a website i.e. http://google.com sends a http request to the webserver
   - it finds the address of the webserver using DNS lookup (and is cached to speed up subsequent requests)
     - JS and CSS will require their own DNS lookup as well
@@ -51,6 +57,7 @@ Web performance also includes things like
       - then, any element subject to layout change will be re-painted (and that element / its children only... it is an optimisation)
     - If Javascript was deferred or is programmed to listen to the `window.addEventListener('load')` event, that will execute now.
 
+### About Measuring web performance
 When you look at web performance, its possible to break it down into two main categories: loading performance, and rendering performance. 
 - Loading focuses on optimising performance on delivery of assets from the server to the browser:
   - file sizes
@@ -89,9 +96,55 @@ When measuirng performance, draw on:
     - not suited for debugging performance issues
     - can't benchmark against competitors 
     - can't effectively measure websites in development 
-    
+
 - Factors which impact page load:
   - users location relative to server
   - network traffic
   - network speed 
   - device power (how quickly they can be processed / rendered)
+
+### Loading Performance Metrics 
+- there are metrics which we can track:
+  - time to first byte
+  - first paint / first contentful paint 
+  - speed index / largest contentful paint 
+  - time to interactive / time to first CPU idle 
+  - total blocking time
+  - first input delay 
+  - load time 
+  - cumulative layout shift
+- there are metrics which we can track, these call fall in either:
+  - quantity based metrics (anything you can count) 
+  - milestone metrics (how long it takes browser to reach specific phase of a loading process)
+    - time to first byte
+      - TTFB: measures reponsiveness of webserver. how long it takes server to respond to first request, i.e. return the html. 
+      - geographical location matters here
+    - first paint / first contentful paint: 
+      - once the 'paint' has started in the critical rendering path: a measurement of how long it takes when the user types in the address in the browser, hits enter, then starts seeing pixels on the screen 
+      - first contentful paint differs in that its when the first pixels are useful to the user: i.e. text, images, svg, non-white canvas elements. if they aren't optimised, the user will perceive poor performance 
+    - speed index / largest contentful paint
+      - speed index is when dom fires events such as `dom content loaded` or `load` - but not considered a good indicator anymore
+        - focuses on viewport loading 
+      - largest contentful paint looks at when the largest image or text block is visible in the view port 
+    - time to interactive
+      - measures the point in the loading process where the page is FULLY interactive 
+        - must be complete enough to facilitate interaction (i.e. buttons etc, event handlers)
+    - time to first CPU idle 
+      - when the page is first interactive 
+    - total blocking time:
+      - measures amount of time between first contentful paint and time to interactive
+        - can help developers understand jsut how non-interactive a page is 
+    - first input delay:
+      - time from the user is first able to interact with the page, to the time the browser is able to respond to this interaction
+        - this is due to it being single-threaded
+        - if browser is still executing JS, it wont be able to respond (call stack is busy)
+    - load time:
+      - can represent a few things. `onLoad` event is fired and static content is loaded, or `onLoad` + no more network activity
+      - not that important in terms of the users perspective of loading. if its interactive at 5 seconds, this is when its perceieved to have loaded, even if last network call is made 10 seconds later 
+    - Cumulative layout shift
+      - when a webiste is loading, often times layout could shift as new elements are introduced.
+        - triggers unnecessary reflows (everything affected by the layout shift needs to be repainted)
+        - the lower the score the better! 
+
+    
+      
