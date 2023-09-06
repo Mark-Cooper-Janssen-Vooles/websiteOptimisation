@@ -21,3 +21,11 @@ CSS is render blocking by default - anything blocking the critical rendering pat
 ---
 
 ## Scalable JavaScript Application Architecture 
+12 year old notes on yahoo's architecture
+
+[Yahoo scalable architecture](./Scalable-JS-architecture.md)
+
+---
+
+## Building Faster Website: Web Performance 
+
