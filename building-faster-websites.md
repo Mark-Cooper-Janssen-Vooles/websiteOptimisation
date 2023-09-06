@@ -1,8 +1,10 @@
 # Building Faster Websites: Web Performance 
 
-- [How browsers load websites](#how-browsers-load-websites)
-- [Measuring web performance](#about-measuring-web-performance)
-- 
+- Measuring Web Performance
+  - [How browsers load websites](#how-browsers-load-websites)
+  - [Measuring web performance](#about-measuring-web-performance)
+  - [Loading Performance metrics](#loading-performance-metrics)
+  - [Performance Budgets](#performance-budgets)
 
 ## What is web performance? 
 
@@ -146,5 +148,10 @@ When measuirng performance, draw on:
         - triggers unnecessary reflows (everything affected by the layout shift needs to be repainted)
         - the lower the score the better! 
 
-    
-      
+### Performance Budgets 
+- Everyone invested of the success of the website needs to be aware of these, this can be done by establishing a performance budget
+- i.e. there is a list of metrics that the performance cannot fall below. this forces performance to be a stakeholder in conversations 
+- What should the performance budget be? 
+  - performance goals are vital, but performance budgets are more about achieving regression. i.e. whatever the live websites metrics are right now
+  - i.e. metrics should never get worse, only better! you can make it whatever the worst was over the last 2 week period.
+- 
