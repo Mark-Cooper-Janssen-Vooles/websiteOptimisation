@@ -7,6 +7,8 @@
   - [Performance Budgets](#performance-budgets)
   - [Performance Goals](#perfomance-goals)
   - [Establishing Testing conditions](#establishing-testing-conditions)
+- [Google Lighthouse](#google-lighthouse) 
+  - 
 
 ## What is web performance? 
 
@@ -158,8 +160,8 @@ When measuirng performance, draw on:
   - i.e. metrics should never get worse, only better! you can make it whatever the worst was over the last 2 week period.
 
 ### Perfomance Goals 
-- how fast do users expect websites to load? this is changed, but ideally less than 8 seconds
-  - 49% of all users expect websites to load less than 2 seconds, 80% of users want an instant load 
+- how fast do users expect websites to load? this is changed over time
+  - google found 53% of visits are abandoned if a mobile site takes longer than 3 seconds to load.
 - what does 'instant' load look like?
   - 100-200ms 
 - google has set 100ms as the goal for an ideal wait time
@@ -171,4 +173,34 @@ When measuirng performance, draw on:
 - many of todays most popular websites don't reach this however: ebay, yahoo, apple, cnn for examples. 
 
 ### Establishing Testing Conditions
-- 
+- We need to use relevant testing conditions to ensure the data is meaingful and relevant 
+- Device type, network speed, test location, which browser
+  - Its important to test under conditions represetative of your users!
+
+- Device types:
+  - 87% of all mobile devices are androids, you could check most commonly sold amazon phones 
+  - 4G is the most commonly used mobile phone network speed, in some poorer countries it might be 3g or 2g.
+- Network speeds:
+  - Basic Guidelines:  
+    - North America / Europe:
+      - throttled 3g 
+      - 300ms round trip delay 
+      - 1.6mbps down
+      - 0.8mbps up
+    - Everywhere else:
+      - 2g
+      - 800ms round trip delay
+      - 280kbps down 
+      - 256 kbps up
+- Test Location: Geographic location plays a role
+  - CDNs reduce these times
+  - if you are a website in america only targeting US users, host it in US!
+  - if you have a website in america targeting global users, better use CDNs
+  - you can find your users locations in google analytics etc
+- Browsers: 
+  - Google analytics can show what browser is mostly used (usually chrome)
+  - Make sure analytics is similar across browsers, if they are similar you can just use one for testing metrics
+
+---
+
+## Google Lighthouse 
