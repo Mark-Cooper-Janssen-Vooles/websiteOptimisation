@@ -50,3 +50,48 @@ Web performance also includes things like
       - on first load, entire page is painted 
       - then, any element subject to layout change will be re-painted (and that element / its children only... it is an optimisation)
     - If Javascript was deferred or is programmed to listen to the `window.addEventListener('load')` event, that will execute now.
+
+When you look at web performance, its possible to break it down into two main categories: loading performance, and rendering performance. 
+- Loading focuses on optimising performance on delivery of assets from the server to the browser:
+  - file sizes
+  - asset load order
+  - no unused assets / code 
+  - no blocking scripts 
+- Rendering performance focuses on:
+  - optimising how complex css style calculations are
+  - is JS causing unnecessary reflows
+  - bad event listeners (how well does it run)
+
+When measuirng performance, draw on:
+- Lab Data 
+  - captured using synthetic testing
+  - in a controlled, simulated environment
+  - full control over device type, network condtions etc
+  - google lighthouse / webpagetest are examples
+  - advantages:
+    - captures lots of data
+    - measures while website is still in development
+    - can measure competitors
+    - benchmark against previous versions to avoid regression
+  - disadvantages
+    - doesn't capture complete picture, only snapshots
+    - unable to directly compare against other data points
+- field data 
+  - data collected from real users
+  - real-user monitoring (RUM)
+  - e.g. google analytics 
+  - captures real world user experience quirks and all
+  - advantages: 
+    - monitoring performance during high traffic events
+    - collects user data
+    - directly cross-reference web performance against other data points 
+  - disadvantages:
+    - not suited for debugging performance issues
+    - can't benchmark against competitors 
+    - can't effectively measure websites in development 
+    
+- Factors which impact page load:
+  - users location relative to server
+  - network traffic
+  - network speed 
+  - device power (how quickly they can be processed / rendered)

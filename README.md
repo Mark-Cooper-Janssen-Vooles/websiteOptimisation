@@ -1,5 +1,8 @@
 # Website Optimisation
 
+When you look at web performance, its possible to break it down into two main categories: loading performance, and rendering performance. 
+Loading focuses on optimising performance on delivery of assets from the server to the browser
+
 Contents:
 - [Impact from CSS on website performance](#css-impact)
 - [Scalable JavaScript Application Architecture](#scalable-javascript-application-architecture)
