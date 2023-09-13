@@ -8,7 +8,7 @@
   - [Performance Goals](#perfomance-goals)
   - [Establishing Testing conditions](#establishing-testing-conditions)
 - [Google Lighthouse](#google-lighthouse) 
-  - 
+  - [Running Lighthouse Audits](#running-lighthouse-audits)
 
 ## What is web performance? 
 
@@ -38,7 +38,7 @@ Web performance also includes things like
   - it finds the address of the webserver using DNS lookup (and is cached to speed up subsequent requests)
     - JS and CSS will require their own DNS lookup as well
   - now the users browser knows the address of the server, it does a TCP handshake
-  - a TLS handshake is required to establish a secure connection - then its connected
+  - a TLS handshake is then required to establish a secure connection - then its connected
   - once connected, the server sends a http response with the html. called a "round trip"
 
 - **Critical Rendering Path:** refers to steps the browser must complete to convert html / css / js to on-screen pixels
@@ -204,3 +204,25 @@ When measuirng performance, draw on:
 ---
 
 ## Google Lighthouse 
+- allows you to audit website in key areas:
+  - performance
+  - accessibility
+  - SEO
+  - best practices
+  - progressive web app implementation
+- generates report on these areas
+- theres also an 'oppourtunities' section on how to improve the performance 
+
+### Running Lighthouse Audits 
+- Generate an audit reports have many different ways: 
+  - Chrome => Devtools => find the 'lighthouse' panel 
+    - because tests are running on your machine, not on googles servers, conditions are not always the same or reliable. can be a ball-park though.
+  - On the web using google's page speed insights: https://pagespeed.web.dev/?utm_source=psi&utm_medium=redirect
+    - can use mobile or desktop here
+    - mobile for https://markjanssen-webdev-learnings.netlify.app/ : 
+      - Performance 65, accessibility 90, best practices 100, seo 91 
+      - First contentful paint took 2.7s 
+      - Largest contentful paint too 2.7s 
+      - Total blocking time is 1,310ms 
+      - Speed index is 4.4s 
+      - Website needs logic to check page width with what to render, is unusable in mobile mode
