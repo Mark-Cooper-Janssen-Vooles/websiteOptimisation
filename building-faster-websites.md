@@ -226,3 +226,15 @@ When measuirng performance, draw on:
       - Total blocking time is 1,310ms 
       - Speed index is 4.4s 
       - Website needs logic to check page width with what to render, is unusable in mobile mode
+
+### Lighthouse in nodejs 
+- you can use a global library or import the nodejs module directly into your js programatically.
+  - global library: 
+    - there is a library that allows lighthouse to be run from the command line, output JSON / CSV, set up the testing environment and block specific requests 
+    - `npm install lighthouse -g`, then in the command line: `lighthouse https://markjanssen-webdev-learnings.netlify.app --output json --output html --output csv`
+    - you can also throttle or use slow 3g settings 
+  - programatically:
+    - `yarn add --dev lighthouse`
+    - this benefits the workflow. build a tool to generate reports and compare them in the CICD pipeline
+    - guide: https://css-tricks.com/build-a-node-js-tool-to-record-and-compare-google-lighthouse-reports/ 
+    
