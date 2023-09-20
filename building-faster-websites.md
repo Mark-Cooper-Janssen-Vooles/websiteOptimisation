@@ -11,7 +11,7 @@
   - [Running Lighthouse Audits](#running-lighthouse-audits)
 - [WebPageTest](#webpagetest) (google lighthouse alternative)
 - [Practical Segment](#practical-segment)
-  - 
+  - [HTTP Requests](#http-requests)
 
 ## What is web performance? 
 
@@ -253,4 +253,21 @@ When measuirng performance, draw on:
 ---
 
 ## Practical Segment 
+- we'll need to establish testing conditions, the website in the `source-code` file is 'MLE power':
+  - device type 
+  - network speed
+  - test location
+  - web browsers
+- lets say its a US based business, targeting US customers 
+- we can test on: Moto G4, 3G, we can use webPageTest's west virginia (where their test server is located), and we can use google chrome 
+- the first test we run on webPageTest becomes our initial performance report 
+- We can set our initial vs our goal metrics like so:
 
+| Metric  | Start Render | First Contentful Paint | Speed Index | Largest Contentful Paint | Cumulative Layout Shift | Time to interactive | Total Blocking time | Bytes Downloaded | Fully Loaded | Lighthouse Score |
+|---------|--------------|------------------------|-------------|--------------------------|-------------------------|---------------------|---------------------|------------------|--------------|------------------|
+| Initial | 5.3s         | 5.3s                   | 8.2s        | 18.9s                    | 0.231                   | 35.7s               | 0.6s                | 4264kb           | 33.0s        | 12               |
+| Goals   | 3.0s         | 3.0s                   | 3.0s        | 3.0s                     | 0.1                     | 5.0s                | 0.3s                | Max 4264kb       | Max 33.0s    | 90+              |
+
+
+
+### Http Requests
