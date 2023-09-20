@@ -9,6 +9,9 @@
   - [Establishing Testing conditions](#establishing-testing-conditions)
 - [Google Lighthouse](#google-lighthouse) 
   - [Running Lighthouse Audits](#running-lighthouse-audits)
+- [WebPageTest](#webpagetest) (google lighthouse alternative)
+- [Practical Segment](#practical-segment)
+  - 
 
 ## What is web performance? 
 
@@ -29,7 +32,6 @@ Web performance also includes things like
 - improving conversions
 - search engine optimisation
   - loading speed of a website is considered a ranking factor
-
 
 ## Measuring web performance
 
@@ -237,4 +239,18 @@ When measuirng performance, draw on:
     - `yarn add --dev lighthouse`
     - this benefits the workflow. build a tool to generate reports and compare them in the CICD pipeline
     - guide: https://css-tricks.com/build-a-node-js-tool-to-record-and-compare-google-lighthouse-reports/ 
-    
+
+
+---
+
+## WebPageTest 
+- a synthetic testing tool
+- open source github project 
+- most widely used at webpagetest.org
+  - simply enter a url and hit test, for example: https://www.webpagetest.org/result/230920_AiDcXZ_3ZR/
+- many different settings etc in here 
+
+---
+
+## Practical Segment 
+
