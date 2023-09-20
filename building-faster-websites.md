@@ -12,6 +12,7 @@
 - [WebPageTest](#webpagetest) (google lighthouse alternative)
 - [Practical Segment](#practical-segment)
   - [HTTP Requests](#http-requests)
+  - [3rd Party Static Assets](#3rd-party-static-assets)
 
 ## What is web performance? 
 
@@ -271,3 +272,11 @@ When measuirng performance, draw on:
 
 
 ### Http Requests
+- want to make sure website is using HTTP/2
+  - http/1 means these can only be downloaded one after another 
+  - http/2 allows us to send multiple requests in parallel 
+  - check by going into the dev tools => network => right click and add 'protocol', it should say h2.
+  - http/2 is enabled at the server level 
+
+### 3rd Party Static Assets 
+- 
