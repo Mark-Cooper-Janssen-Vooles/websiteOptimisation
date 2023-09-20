@@ -1,5 +1,7 @@
 # Building Faster Websites: Web Performance 
 
+A quick testing website to use would be something like webpagetest.org - however ideally you will bake something into your CICD pipeline.
+
 - Measuring Web Performance
   - [How browsers load websites](#how-browsers-load-websites)
   - [Measuring web performance](#about-measuring-web-performance)
@@ -13,6 +15,7 @@
 - [Practical Segment](#practical-segment)
   - [HTTP Requests](#http-requests)
   - [3rd Party Static Assets](#3rd-party-static-assets)
+  - [Image Resizing](#image-resizing)
 
 ## What is web performance? 
 
@@ -279,4 +282,15 @@ When measuirng performance, draw on:
   - http/2 is enabled at the server level 
 
 ### 3rd Party Static Assets 
+- devs include static assets for 3rd partys because its quick / convenient. usually loaded from a CDN. 
+  - common use cases include certain fonts, or icons, bootstrap css, etc.
+  - there are risks 
+    - code might change, it could be malicious
+    - could go down 
+    - css is render blocking, so critical rendering path wont be able to complete 
+- with the above in mind, its best to bring as many 3rd party scripts as we can under our control
+  - go to the third party links (i.e. https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css) and save and serve the file locally.
+  - other oppourtunities include making this css load asynchronously. Websites like webpagetest.org will give recommendations 
+
+### Image Resizing 
 - 
