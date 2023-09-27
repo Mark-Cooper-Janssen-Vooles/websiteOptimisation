@@ -16,6 +16,8 @@ A quick testing website to use would be something like webpagetest.org - however
   - [HTTP Requests](#http-requests)
   - [3rd Party Static Assets](#3rd-party-static-assets)
   - [Image Resizing](#image-resizing)
+  - [Image Optimisation](#image-optimisation)
+  - [Resource Hints](#resource-hints)
 
 ## What is web performance? 
 
@@ -312,4 +314,24 @@ When measuirng performance, draw on:
 - sizing images correctly can have a massive impact on overall perfoamnce, improving all the metrics 
 
 ### Image Optimisation 
+- you can optimise images further using something like imageoptim.com/mac (on mac) to remove things like meta-data, thumb nails, other things that aren't needed
+- you can use an optimisation using gulp or some build processor (like webpack)
+  - you may need a library that optimises images in these build processor
+  - an additional way to optimise images is to use newer file formats that offer better compression, i.e. webP format (developed by google) - will probably need another library to do this
+  - some browsers (i.e. safari) might not support webp format - for those we'd need to serve the origional jpgs. can use www.caniuse.com/webp to check
+    - will need to write logic to check if browser supports webp or not, and serve the jpgs if it doesn't  
+  - webp is a relatively minor optimisation 
+- animated gifs can be huge in file size - better to convert these gifs to videos using "FFmpeg" - ffmpeg.org/download.html has information how to do this 
+  - converts the gifs into mp4 video
+  - saves around 95% in file size! 
+  - there is also 'webM', similar to 'webP' which is for videos. you can use ffmpeg to conver the gifs to webM.
+    - again webM isn't supported by all - check www.caniuse.com/webm (seems just IE doesn't support now)
+````html
+<video autoplay loop muted playsinline>
+  <!-- essentially because webm is first it tries to play this one, but if not supported it will play mp4 -->
+  <source src="/img/dog3.webm" type="video/webm">
+  <source src="/img/dog3.mp4" type="video/mp4">
+</video>
+````
 
+### Resource Hints
