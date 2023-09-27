@@ -24,6 +24,8 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Critical CSS](#critical-css)
   - [Google Fonts Optimisation](#google-fonts-optimisation)
   - [Self hosted fonts](#self-hosted-fonts)
+  - [System Fonts](#system-fonts) - better to use system fonts then muck around! 
+  - [Lazy Loading](#lazy-loading)
 
 
 ## What is web performance? 
@@ -424,3 +426,23 @@ When measuirng performance, draw on:
   - we can preconnect to the domain `<link role="preconnect" href="https://fonts.gstatic.com" crossorigin>`
 
 ### Self-hosted fonts
+- alternatively to using google fonts, we can host the fonts ourselves 
+- this opens the door to more optimisations
+- can grab the links from the google fonts css url's and download them one after another, and put them in a fonts directory
+- self-hosted fonts can perform worse - need to check gulp or webpack config 
+  - browsers load custom fonts differently. need to use `font-display: swap` => browser displays text using next-available fallback font until the specified font is available. the time from the fallback font to the specified font is called "the flash of unstyled text" 
+- a good idea to use preload on each font: <link rel="preload" href="/fonts/somefont.woff2" as='font' type='font/woff2' crossorigin>
+  - because we're pre-loading fonts the browser thinks these are more improtant, so the browser loads them first - actually creates a worse percieved perfomance. so he removes them. he says test or you'll never know!
+
+### system fonts!
+- system fonts are fonts already in use in your OS - using these in your website will grant a performance boost since you don't have to download any additional webfonts
+  - lots of websites use these now as their default - github, wordpress, medium 
+  - add a font-family css rule like this: 
+````css
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial
+}
+````
+  - there are many listed because no one OS has them all. if it doesn't have one, it moves on to the next until there is a next. 
+
+### Lazy Loading
