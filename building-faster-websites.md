@@ -18,6 +18,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Image Resizing](#image-resizing)
   - [Image Optimisation](#image-optimisation)
   - [Resource Hints](#resource-hints)
+  - [Async / defer Javascript](#async--defer-javascript)
 
 ## What is web performance? 
 
@@ -335,3 +336,37 @@ When measuirng performance, draw on:
 ````
 
 ### Resource Hints
+- resource hints are a way to tell the browser it needs to makes to other domains, or download other content, before it normally would 
+- add them to the head of a html document:
+````html
+<html>
+  <head>
+    <link rel="dns-prefetch" href="https://www.3rd-party.com">
+    <link rel="preconnect" href="https://www.domain.com">
+    <link rel="prefetch" href="https://www.3rd-party.com/3rd-party.js" as="script">
+    <link rel="preload" href="https://www.3rd-party.com/3rd-party.js" as="script">
+    <link rel="prerender" href="https://example.com/other-page>
+  </head>
+</html>
+````
+- there are a number of different types:
+  - DNS Prefetch:
+    - performs a dns lookup on a domain, one of the steps required. it forms a connection a little bit quicker
+  - Preconnect:
+    - similar to dns prefetch, but it does DNS prefetch + tcp + tls (if req) handshake
+    - readies a full connection early
+  - Prefetch:
+    - if we know we will defs need a resource later in the loading process, we can tell the browser using the prefetch resource hint that it should download and cache the file in preparation.
+    - this can be js, html, css, anything thats cachable 
+    - this resource hint isn't definitive - if the browser determines it has something more important to load, it will do that instead 
+    - safari may not support it 
+  - Preload:
+    - similar to prefetch, except its no longer a suggestion - its an order
+    - prioritises loading whatever is in preload over the current pages critical resources (better to use prefetch!)
+    - the browser must download this file straight away 
+    - not supported in all major browsers 
+  - Prerender:
+    - can only be used with other web pages - downloads the pages html, parses its contents, downloads and executes its discovered resources. i.e. the page is rendered in a hidden tab in anticipating the user visiting it (if this user doesn't visit it, its a waste of resources)
+    - potentially only supported on chrome. check: wwww.caniuse.com/?search=prerender
+
+### Async / Defer Javascript 
