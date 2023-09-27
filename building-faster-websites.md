@@ -20,6 +20,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Resource Hints](#resource-hints)
   - [Async / defer Javascript](#async--defer-javascript)
   - [Text Compression](#text-compression)
+  - [Text Asset Optimisation](#text-asset-optimisation)
 
 ## What is web performance? 
 
@@ -379,3 +380,10 @@ When measuirng performance, draw on:
       - best suited to JS that doesn't require a complete DOM, or doesnt require other JS to be loaded 
 
 ### Text Compression 
+- when text assets from html, css, js, are sent to the browser as the website is being loaded, you can compress them using special file formats 
+- gzip is the most widely used of this. another is BROTLI (by google, even better than gzip) 
+- you can see if things are being compressed in devtools => network => refresh the page => right click tabs and choose "response headers => content-encoding", funnily enough google.com uses gzip a lot
+- if using AWS s3 need to pre-compress files using tools like Gzip or Brotli before uploading 
+- if using AWS CloudFront as a CDN, you can configure cloudfront to automatically apply compression 
+
+### Text Asset Optimisation 
