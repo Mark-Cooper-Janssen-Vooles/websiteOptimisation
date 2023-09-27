@@ -22,7 +22,8 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Text Compression](#text-compression)
   - [Text Asset Optimisation](#text-asset-optimisation)
   - [Critical CSS](#critical-css)
-  
+  - [Google Fonts Optimisation](#google-fonts-optimisation)
+
 
 ## What is web performance? 
 
@@ -399,3 +400,21 @@ When measuirng performance, draw on:
   - some js stats: js was 700kb unbundled, 150kb bundled, 200kb unbundled but gzipped, and 50kb bundled + gzipped 
 
 ### Critical CSS 
+- CSS defaults to render blocking
+- if this wasn't the case, you'd experience 'flash of unstyled content' 
+- there is a way to stop css from blocking rendering, and the 'flash of unstyled content'
+  - we can determine the bare minimum css required to style the content in the initial viewport (i.e. all the user sees as the page is loading, i.e. not what you can scroll down to see)
+  - we then separate this CSS From the rest, and add it to display in-line in the HTML document directly 
+  - the remaining non-critical CSS stays where it is in the .css file and is loaded async at a later stage 
+  - now the browser can render the viewport content without having to download any additional CSS files
+- how do we separate critical from non-critical css and make the latter load asyncronously? 
+  - there is a npm package 'critical' that can do this for us - can use this in webpack / gulp etc
+- this ends up making the 'percieved' loading of the viewport of the page 0.4s faster
+- best to then check how the page is being rendered, can use something like webpagetest.org to view the video test result frame by frame 
+  - if you notice something like an image not loading yet, you can use the preload `<link rel="preload" href="/img/logo.svg" as="image"` to load those faster too
+- now with the image being preloaded as well, instead of feeling complete at 4.5s, it now feels complete at 2.9s! (whats loaded in the viewport)
+- this makes huge improvements to the rendering times! such as:
+  - start render, first contentful paint, speed index, largest contentful paint
+
+#### Google fonts Optimisation
+- 
