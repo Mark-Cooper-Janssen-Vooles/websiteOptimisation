@@ -21,6 +21,8 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Async / defer Javascript](#async--defer-javascript)
   - [Text Compression](#text-compression)
   - [Text Asset Optimisation](#text-asset-optimisation)
+  - [Critical CSS](#critical-css)
+  
 
 ## What is web performance? 
 
@@ -385,5 +387,15 @@ When measuirng performance, draw on:
 - you can see if things are being compressed in devtools => network => refresh the page => right click tabs and choose "response headers => content-encoding", funnily enough google.com uses gzip a lot
 - if using AWS s3 need to pre-compress files using tools like Gzip or Brotli before uploading 
 - if using AWS CloudFront as a CDN, you can configure cloudfront to automatically apply compression 
+- netlify does this automatically
 
 ### Text Asset Optimisation 
+- currently, the CSS and JS is split across multiple files - by bundling them into single files (i.e. one style.css, one script.js) will help the browser download them faster - because text compression works better on larger files 
+- to put all the CSS in a single file we can use SASS - a css pre-processor
+  - you can import other css components into .sass files. things like gulp / webpack can do this. 
+  - can get like 80% space savings here using gzip or brotli compared to uncompressed 
+- to get all JS in in a single file: 
+  - can use something like rollup.js or webpack to bundle the js into one file (best to minify also)
+  - some js stats: js was 700kb unbundled, 150kb bundled, 200kb unbundled but gzipped, and 50kb bundled + gzipped 
+
+### Critical CSS 
