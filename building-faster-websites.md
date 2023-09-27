@@ -19,6 +19,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Image Optimisation](#image-optimisation)
   - [Resource Hints](#resource-hints)
   - [Async / defer Javascript](#async--defer-javascript)
+  - [Text Compression](#text-compression)
 
 ## What is web performance? 
 
@@ -370,3 +371,11 @@ When measuirng performance, draw on:
     - potentially only supported on chrome. check: wwww.caniuse.com/?search=prerender
 
 ### Async / Defer Javascript 
+- a html parser builds the dom, if it finds a script file linking to a js file, parsing is paused until the js is rendered
+  - this makes js a blocking resource until its finished
+  - modern browsers allow us to tackle this issue: `<script src="script.js" defer></script>`
+    - delays js execution until after html is fully parsed - script is no longer render blocking 
+    - `<script src="script.js" async></script>` is very similar, except js is executed as soon as its able too (parallel to the html parsing)
+      - best suited to JS that doesn't require a complete DOM, or doesnt require other JS to be loaded 
+
+### Text Compression 
