@@ -23,6 +23,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Text Asset Optimisation](#text-asset-optimisation)
   - [Critical CSS](#critical-css)
   - [Google Fonts Optimisation](#google-fonts-optimisation)
+  - [Self hosted fonts](#self-hosted-fonts)
 
 
 ## What is web performance? 
@@ -417,4 +418,9 @@ When measuirng performance, draw on:
   - start render, first contentful paint, speed index, largest contentful paint
 
 #### Google fonts Optimisation
-- 
+- most popular way of including non-standard fonts out of the box
+- usually already pretty good, made non-blocking etc
+- still room for improvement: i.e. preconnect 
+  - we can preconnect to the domain `<link role="preconnect" href="https://fonts.gstatic.com" crossorigin>`
+
+### Self-hosted fonts
