@@ -293,4 +293,23 @@ When measuirng performance, draw on:
   - other oppourtunities include making this css load asynchronously. Websites like webpagetest.org will give recommendations 
 
 ### Image Resizing 
-- 
+- images can be a huge waste of download
+- png's are more suited to icons or illustrations, for photos .jpg's are better
+  - i.e. png may be 500kb's, jpg might be more like 120kb
+- the image's width may be larger than what it is used on the actual website 
+  - i.e. an image with a 2000px width may only be in a banner thats max 500px wide, good to resize it 
+  - good to have two size variants: one for desktop, one for mobile 
+- for desktop images:
+  - size images for their eventual size on the page (the images container)
+  - the picture element is a good one to use:
+  ````html
+  <picture>
+    <!-- a source element for each individual variant, in this case with the width smaller than 768px -->
+    <source srcset='img/img-small.jpg' type='image/jpg' media="(max-width: 768px)">
+    <img src='img/img.jpg' alt="picture of a dog playing">
+  </picture>
+  ````
+- sizing images correctly can have a massive impact on overall perfoamnce, improving all the metrics 
+
+### Image Optimisation 
+
