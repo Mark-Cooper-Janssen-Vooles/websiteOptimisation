@@ -2,10 +2,10 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./App.css";
 import useComponentSize from "@rehooks/component-size";
 import StarData from "./data.json";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import StarComponent from "./Star";
-import NewBtn from "./NewBtn";
-import Info from "./info";
+import { NewBtn } from "./NewBtn";
+import { Info } from "./info";
 import { NewStarModal } from "./components/modal/NewStarModal";
 
 function positionStars(Stars, width, height) {
@@ -52,6 +52,7 @@ function App() {
   const boardSize = useComponentSize(boardRef);
   const { height, width } = boardSize;
 
+  //use useCallback hook to memoize a function
   const showDialog = useCallback(() => setIsAddOpen(true), []);
 
   useEffect(() => {
@@ -63,9 +64,9 @@ function App() {
   }, [height, width]);
 
   function handleDelete(Star) {
-    const tempStars = { ...Stars }
-    delete tempStars[Star.id]
-    setStars({ ...tempStars }); 
+    const tempStars = { ...Stars };
+    delete tempStars[Star.id];
+    setStars(tempStars);
   }
 
   const StarEls = Object.values(Stars).map((Star) => (
@@ -106,6 +107,7 @@ function App() {
     >
       {StarEls}
       <Info Stars={Stars} />
+      {/* change the onClick prop to a memoized prop */}
       <NewBtn onClick={showDialog} />
       {isAddOpen && (
         <NewStarModal

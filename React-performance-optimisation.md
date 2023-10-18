@@ -138,3 +138,33 @@ const comparison = (p1, p2) => Object.keys(p1.Stars).length === Object.keys(p2.S
 
 export default React.memo(Info, comparison)
 ````
+
+### Prevent wasted renders in repeated components 
+- if you move one of the `<Star />` components, all of the other Star components re-render also! 
+- we want only the star that we move to be re-rendered
+````js
+const comparison = (prevProps, nextProps) => {
+  return (
+    prevProps.Star.id === nextProps.Star.id &&
+    prevProps.Star.position.left === nextProps.Star.position.left &&
+    prevProps.Star.position.top === nextProps.Star.position.top
+  );
+};
+
+export default React.memo(StarComponent, comparison)
+````
+- note that here we also need to make sure in App.js we are not causing mutations to the stars location, but are creating a new Star object:
+````js
+let newStar = {};
+newStar.id = Star.id;
+newStar.age = Star.age;
+newStar.offset = Star.offset;
+newStar.position = {
+  top: ev.pageY - dragOffset.y,
+  left: ev.pageX - dragOffset.x,
+};
+
+Stars[newStar.id] = newStar;
+
+setStars({ ...Stars });
+````

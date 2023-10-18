@@ -1,6 +1,6 @@
 import React from "react";
 
-const StarComponent = (props) => {
+const StarComponent = function StarComponent(props) {
   const { Star, onDragStart, onDragEnd, onDoubleClick } = props;
   return (
     <div
@@ -23,8 +23,7 @@ const StarComponent = (props) => {
       ⭐{Star.age}
     </div>
   );
-}
-
+};
 const comparison = (prevProps, nextProps) => {
   return (
     prevProps.Star.id === nextProps.Star.id &&
@@ -33,4 +32,4 @@ const comparison = (prevProps, nextProps) => {
   );
 };
 
-export default React.memo(StarComponent, comparison)
+export default React.memo(StarComponent, comparison);

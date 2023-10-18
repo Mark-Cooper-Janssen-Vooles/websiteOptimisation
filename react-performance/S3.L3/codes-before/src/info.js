@@ -8,7 +8,6 @@ const Info = (props) => {
 //   // return true if newKeys length isn't the same as oldKeys length - only rerender in this case
 //   return oldKeys.length !== newKeys.length
 // }
-console.log('stars from props:', props)
 
   const Stars = Object.values(props.Stars);
 
