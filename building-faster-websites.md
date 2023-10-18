@@ -28,6 +28,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Lazy Loading](#lazy-loading)
   - [Remove unused CSS](#remove-unused-css)
   - [Remove unused JavaScript](#remove-unused-javascript)
+  - [Caching Strategies](#caching-strategies)
 
 
 ## What is web performance? 
@@ -474,3 +475,8 @@ Lazy loading images:
   - use gulp / webpack / whatever if required 
 
 ### Caching Strategies 
+this focuses on improving performance of repeat loads by caching asset downloads 
+- only re-download if assets have changed 
+- caching is server-led, so to change this we'd use apache or whatever (can be done in s3 / cloudfront)
+- seems to happen automatically on netlify by default: https://docs.netlify.com/platform/caching/
+
