@@ -5,7 +5,7 @@ import StarData from "./data.json";
 import { v4 as uuidv4 } from 'uuid';
 import { StarComponent } from "./Star";
 import NewBtn from "./NewBtn";
-import { Info } from "./info";
+import Info from "./info";
 import { NewStarModal } from "./components/modal/NewStarModal";
 
 function positionStars(Stars, width, height) {
@@ -75,6 +75,8 @@ function App() {
       onDoubleClick={() => handleDelete(Star)}
     />
   ));
+
+  console.log('stars from app:', Stars)
 
   return (
     <div

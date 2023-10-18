@@ -28,11 +28,16 @@ Need to install the chrome dev tools extension "react"
   - FYI class components are still supported by React, but it is not recommended to use them.
 - Value references (in props): 
   - i.e. add usage of `shouldComponentUpdate` - this needs to compare the nextProps with the currentProps and return true if it should re-render, and false when it shouldn't 
+  - make sure you use immutable values in your props
 
 ### Functional Components and Rerenders
 - Function references (in props):
   - React.memo needs to be used. `React.memo` is a higher-order component in React that's used to optimize the performance of functional components by preventing unnecessary re-renders.  
   - i.e. instead of exporting your functional component `export default NewBtn`, you export it wrapped `export default React.memo(NewBtn)`
+- Value references (in props):
+  - use React.memo and pass it the component as the first argument and the comparison function as the second, it will rerender when the comparison is true 
+  - make sure you use immutable values in your props
+
 
 ### useCallback and useMemo hooks
 - The React useCallback Hook returns a memoized callback function.
@@ -92,6 +97,7 @@ export default React.memo(NewBtn)
 ````
 
 ### Preventing wasted renders when dealing with complex props 
+For Class Components:
 - start recording the profiler session and move a star
   - the Info component was re-rendered all the time. Why was that when the number of stars, age of oldest star, and age of youngest star did not change?
 - our info component is a class component, and jsut receieves the 'Stars' as the props and only populates it based on those. 
@@ -124,3 +130,11 @@ export class Info extends React.Component {
       }
     ````
     - after the above change it correclt updates the `<Info />` component. 
+
+For functional components: 
+- similar to the function reference, we will use `React.memo(Info)` however we will pass it the second argument as that is the comparison for the values:
+````js
+const comparison = (p1, p2) => Object.keys(p1.Stars).length === Object.keys(p2.Stars).length // rerenders when true!
+
+export default React.memo(Info, comparison)
+````
