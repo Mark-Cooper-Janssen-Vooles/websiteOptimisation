@@ -21,14 +21,18 @@ Need to install the chrome dev tools extension "react"
 - Can now open dev tools and choose the 'Profiler' and start a session then do some interaction, then stop the profiler 
   - this tells you how many re-renders occur etc. If everything is re-rendering then we can improve the performance!
 
-### Class Components and Rerenders: Component vs PureComponent
-- i.e. `export class NewBtn extends React.Component {` => `export class NewBtn extends React.PureComponent {`
-- PureComponent is similar to Component but it skips re-renders for same props and state.
-- FYI class components are still supported by React, but it is not recommended to use them.
+### Class Components and Rerenders: 
+- Function references (in props): Component vs PureComponent
+  - i.e. `export class NewBtn extends React.Component {` => `export class NewBtn extends React.PureComponent {`
+  - PureComponent is similar to Component but it skips re-renders for same props and state.
+  - FYI class components are still supported by React, but it is not recommended to use them.
+- Value references (in props): 
+  - i.e. add usage of `shouldComponentUpdate` - this needs to compare the nextProps with the currentProps and return true if it should re-render, and false when it shouldn't 
 
 ### Functional Components and Rerenders
-- React.memo needs to be used. `React.memo` is a higher-order component in React that's used to optimize the performance of functional components by preventing unnecessary re-renders.  
-- i.e. instead of exporting your functional component `export default NewBtn`, you export it wrapped `export default React.memo(NewBtn)`
+- Function references (in props):
+  - React.memo needs to be used. `React.memo` is a higher-order component in React that's used to optimize the performance of functional components by preventing unnecessary re-renders.  
+  - i.e. instead of exporting your functional component `export default NewBtn`, you export it wrapped `export default React.memo(NewBtn)`
 
 ### useCallback and useMemo hooks
 - The React useCallback Hook returns a memoized callback function.
@@ -88,3 +92,35 @@ export default React.memo(NewBtn)
 ````
 
 ### Preventing wasted renders when dealing with complex props 
+- start recording the profiler session and move a star
+  - the Info component was re-rendered all the time. Why was that when the number of stars, age of oldest star, and age of youngest star did not change?
+- our info component is a class component, and jsut receieves the 'Stars' as the props and only populates it based on those. 
+  - we want to tell the component to check the props coming to us. We want to tell the component that if the length / ages are the same, do not rerender! 
+  - pureComponent only checks the references. Here we want to check the value of the props. We have a function for this - shouldComponentUpdate
+  - shouldComponentUpdate takes 'nextProps' and we compare the currentProps to the nextProps - we return true if we want a re-render. 
+````js
+export class Info extends React.Component {
+  shouldComponentUpdate(nextProps){
+    const oldKeys = Object.keys(this.props.Stars);
+    const newKeys = Object.keys(nextProps.Stars)
+
+    // return true if newKeys length isn't the same as oldKeys length - only rerender in this case
+    return oldKeys.length !== newKeys.length
+  }
+````
+  - important to check it re-renders when it should too - certain mutation bugs etc could cause issues here:
+    - it is being passed Stars after they've been deleted using handleDelete
+    ````js
+      function handleDelete(Star) {
+        delete Stars[Star.id]; // here we mutate it in-place and pass it directly in
+        setStars({ ...Stars }); 
+      }
+
+      // using immutable data:
+      function handleDelete(Star) {
+        const tempStars = { ...Stars }
+        delete tempStars[Star.id]
+        setStars({ ...tempStars }); 
+      }
+    ````
+    - after the above change it correclt updates the `<Info />` component. 

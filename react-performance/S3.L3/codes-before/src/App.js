@@ -60,8 +60,9 @@ function App() {
   }, [height, width]);
 
   function handleDelete(Star) {
-    delete Stars[Star.id];
-    setStars({ ...Stars });
+    const tempStars = { ...Stars }
+    delete tempStars[Star.id]
+    setStars({ ...tempStars }); 
   }
 
   const StarEls = Object.values(Stars).map((Star) => (

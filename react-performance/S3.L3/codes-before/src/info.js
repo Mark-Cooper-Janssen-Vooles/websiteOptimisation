@@ -1,6 +1,14 @@
 import React from "react";
 
 export class Info extends React.Component {
+  shouldComponentUpdate(nextProps){
+    const oldKeys = Object.keys(this.props.Stars);
+    const newKeys = Object.keys(nextProps.Stars)
+
+    // return true if newKeys length isn't the same as oldKeys length - only rerender in this case
+    return oldKeys.length !== newKeys.length
+  }
+
   render() {
     const Stars = Object.values(this.props.Stars);
 
