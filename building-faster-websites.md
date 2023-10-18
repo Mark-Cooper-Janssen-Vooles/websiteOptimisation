@@ -446,3 +446,15 @@ html {
   - there are many listed because no one OS has them all. if it doesn't have one, it moves on to the next until there is a next. 
 
 ### Lazy Loading
+By default, if an image-heavy page is downloaded, so are all of the images - wether the user sees them or not initially. 
+The solution is lazy loading:
+- allows us to defer the loading of assets until they're in the viewport (visible to the user), we only download what we need 
+
+
+Lazy loading images:
+- as simple as loading the loading attribute and setting it to lazy: `<img src="/img/product-image.png" alt="product image" loading="lazy"`
+  - can also be used on iframes: `<iframe src="https://www.google.com/maps/embed/etc" allowFullScreen loading="lazy"></iframe>`
+- may be different in safari etc in terms of support: https://caniuse.com/loading-lazy-attr
+- lazy loading may increase cumulative layout shift - to avoid this add width and height elements of what the image will load to: 
+  - `<img src="/img/product-image.png" alt="product image" loading="lazy" width="200px" height="200px"`
+
