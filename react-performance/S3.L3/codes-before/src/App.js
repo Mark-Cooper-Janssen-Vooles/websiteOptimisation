@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./App.css";
 import useComponentSize from "@rehooks/component-size";
 import StarData from "./data.json";
@@ -49,6 +49,8 @@ function App() {
   const boardSize = useComponentSize(boardRef);
   const { height, width } = boardSize;
 
+  const showDialog = useCallback(() => setIsAddOpen(true), []);
+
   useEffect(() => {
     if (height && width) {
       const parsedStars = parseData();
@@ -94,7 +96,7 @@ function App() {
     >
       {StarEls}
       <Info Stars={Stars} />
-      <NewBtn onClick={() => setIsAddOpen(true)} />
+      <NewBtn onClick={showDialog} />
       {isAddOpen && (
         <NewStarModal
           isOpen={isAddOpen}
