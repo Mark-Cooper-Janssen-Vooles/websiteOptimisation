@@ -15,6 +15,7 @@ Contents:
 - [Web Performance](#building-faster-website-web-performance)
 - [Impact from CSS on website performance](#css-impact)
 - [Scalable JavaScript Application Architecture](#scalable-javascript-application-architecture)
+- [React Performance Optimization]
 
 
 ---
@@ -48,3 +49,12 @@ CSS is render blocking by default - anything blocking the critical rendering pat
 [Yahoo scalable architecture](./Scalable-JS-architecture.md)
 
 ---
+
+## React Performance Optimisation
+As a react developer you need to be aware of common pitfalls and mistakes and how to avoid them to get the most out of your react applicaton:
+- Avoiding wasted renders
+- Reducing bundle size of App
+- Loading components on demand 
+- Catching Expensive operation results 
+
+[React Performance Optimisation]
