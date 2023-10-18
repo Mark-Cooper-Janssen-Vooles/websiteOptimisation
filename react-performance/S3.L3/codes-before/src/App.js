@@ -4,7 +4,7 @@ import useComponentSize from "@rehooks/component-size";
 import StarData from "./data.json";
 import { v4 as uuidv4 } from 'uuid';
 import { StarComponent } from "./Star";
-import { NewBtn } from "./NewBtn";
+import NewBtn from "./NewBtn";
 import { Info } from "./info";
 import { NewStarModal } from "./components/modal/NewStarModal";
 

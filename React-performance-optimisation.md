@@ -7,6 +7,8 @@ NOTE:
 Contents:
 - [Info](#info)
 - [Wasted Renders](#wasted-renders)
+  - Class components
+  - function components
 - Bundle Size 
 - Expensive Operations 
 
@@ -19,10 +21,14 @@ Need to install the chrome dev tools extension "react"
 - Can now open dev tools and choose the 'Profiler' and start a session then do some interaction, then stop the profiler 
   - this tells you how many re-renders occur etc. If everything is re-rendering then we can improve the performance!
 
-### Component vs PureComponent 
+### Class Components and Rerenders: Component vs PureComponent
 - i.e. `export class NewBtn extends React.Component {` => `export class NewBtn extends React.PureComponent {`
 - PureComponent is similar to Component but it skips re-renders for same props and state.
 - FYI class components are still supported by React, but it is not recommended to use them.
+
+### Functional Components and Rerenders
+- React.memo needs to be used. `React.memo` is a higher-order component in React that's used to optimize the performance of functional components by preventing unnecessary re-renders.  
+- i.e. instead of exporting your functional component `export default NewBtn`, you export it wrapped `export default React.memo(NewBtn)`
 
 ### useCallback and useMemo hooks
 - The React useCallback Hook returns a memoized callback function.
@@ -37,7 +43,7 @@ Need to install the chrome dev tools extension "react"
 This is the source of most performance problems in React
 - Every time there is a change in react, it asks every component to give the latest mark-up 
 
-### Preventing Wasted Renders in a simple component 
+### Preventing Wasted Renders in a simple (class) component 
 - use the profiler, start session, move a star
   - can see number of renders 
   - can click through different components changed based on the render 
@@ -53,3 +59,32 @@ This is the source of most performance problems in React
     - we can then check the profiler - it works! 
 
 ### Preventing Wasted Renders in Functional Components 
+- lets say we use a functional component with a wasted render:
+  - we cannot use a pureComponent technique in a functional component
+- convert class component to functional component: 
+````js
+export const newBtn = (props) => {
+  const { onClick } = props;
+  return (
+    <button className="new-star" onClick={onClick}>
+      ⭐
+    </button>
+  );
+}
+````
+- if we re-check the profiler, we notice we have the re-render problem again
+  - we want it so that when the reference of the props don't change we want the component to not re-render 
+  - we can use memo for this:
+````js
+const NewBtn = ({ onClick }) => {
+  return (
+    <button className="new-star" onClick={onClick}>
+      ⭐
+    </button>
+  );
+}
+
+export default React.memo(NewBtn)
+````
+
+### Preventing wasted renders when dealing with complex props 
