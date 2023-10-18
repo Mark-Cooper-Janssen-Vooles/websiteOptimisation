@@ -27,6 +27,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [System Fonts](#system-fonts) - better to use system fonts then muck around! 
   - [Lazy Loading](#lazy-loading)
   - [Remove unused CSS](#remove-unused-css)
+  - [Remove unused JavaScript](#remove-unused-javascript)
 
 
 ## What is web performance? 
@@ -468,3 +469,8 @@ Lazy loading images:
 - the aim of this is to reduce the unused CSS, it will never be zero i.e. some styles will only be used in mobile view etc.
 
 ### Remove unused JavaScript
+- instead of having one global.js file - each page has its own file, downloading only what it needs 
+  - split existing js file into individual ones so they can be imported where required (react already kind of does this + i think impossible for SPA?)
+  - use gulp / webpack / whatever if required 
+
+### Caching Strategies 
