@@ -26,6 +26,7 @@ A quick testing website to use would be something like webpagetest.org - however
   - [Self hosted fonts](#self-hosted-fonts)
   - [System Fonts](#system-fonts) - better to use system fonts then muck around! 
   - [Lazy Loading](#lazy-loading)
+  - [Remove unused CSS](#remove-unused-css)
 
 
 ## What is web performance? 
@@ -458,3 +459,12 @@ Lazy loading images:
 - lazy loading may increase cumulative layout shift - to avoid this add width and height elements of what the image will load to: 
   - `<img src="/img/product-image.png" alt="product image" loading="lazy" width="200px" height="200px"`
 
+### Remove Unused CSS
+- open dev tools => 3 dots => more tools => coverage => click 'start instrumenting and refresh page' 
+  - this shows how much CSS has been loaded but not used (the % and in the red bar)
+  - we can remove our CSS - each page can have its own CSS file (currently all the pages use the one CSS file)
+    - this will be done in webpack of gulp etc 
+    - he uses gulp to create a replica of index.css for each page, then uses a new library "purgeCSS" to purge the unused CSS for each file to generate the final outcome CSS files 
+- the aim of this is to reduce the unused CSS, it will never be zero i.e. some styles will only be used in mobile view etc.
+
+### Remove unused JavaScript
