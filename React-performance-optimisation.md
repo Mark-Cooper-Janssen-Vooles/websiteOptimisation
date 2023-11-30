@@ -253,7 +253,7 @@ export const Info = React.memo(
     const [exapnded, setExpanded] = useState(false);
     const Stars = Object.values(props.Stars);
 
-    const distances = useMemo(() => {
+    const distances = useMemo(() => { // now using useMemo - only calculated when object.keys(Stars).length is changed!
       const distancesCalc = { max: 0, min: 1000 };
       Stars.forEach((currentStar) => {
         setTimeout(() => console.log('take awhile'), 2000)
