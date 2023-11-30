@@ -7,10 +7,12 @@ NOTE:
 Contents:
 - [Info](#info)
 - [Wasted Renders](#wasted-renders)
-  - Class components
-  - function components
+  - Class components (PureComponent)
+  - function components (React.memo)
 - [Fixing Large Bundles and Expensive Operations Issues](#fixing-large-bundles-and-expensive-operations-issues) 
-- Expensive Operations 
+  - Expensive Operations (useMemo hook)
+  - Reducing Bundle Sizes (using production builds - webpack)
+  - Lazy Loading Components
 
 ---
 
@@ -285,7 +287,18 @@ export const Info = React.memo(
 );
 ````
 
+### Reducing Bundle Size
 
+- clear network tab, click hard reload + clear empty cache 
+- see in the network tab 'bundle.js' is 393kb - can we reduce this size?
+  - to get smaller bundles, switch from development build to production mode. we've got the one using create-react-app (webpack)
+  - we want the build script => it tells webpack we want the production build. 
+  - `npm run build`
+  - `npx serve -s build`
+  - now check network tab again for this one, we've got main.js instead now but its 58.1kb (compared to dev build which is 393kb)
+- just need to make sure webpack is set up correctly to use gzip etc and reducing this bundle size!
+
+### Lazy Loading Components
 
 ---
 
