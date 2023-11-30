@@ -62,3 +62,10 @@
   user-select: "none";
   border-radius: 50vw;
 }
+
+.Modal-loader {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background-color: rgb(44, 34, 34);
+}

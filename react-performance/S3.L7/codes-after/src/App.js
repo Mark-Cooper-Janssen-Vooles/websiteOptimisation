@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, lazy, Suspense } from "react";
 import "./App.css";
 import useComponentSize from "@rehooks/component-size";
 import StarData from "./data.json";
@@ -6,7 +6,10 @@ import { v4 as uuidv4 } from "uuid";
 import StarComponent from "./Star";
 import { NewBtn } from "./NewBtn";
 import { Info } from "./info";
-import { NewStarModal } from "./components/modal/NewStarModal";
+
+const NewStarModal = lazy(() => import('./components/modal/NewStarModal'))
+
+const ModalLoader = () => <div className="Modal-loader">Loading...</div>
 
 function positionStars(Stars, width, height) {
   Object.values(Stars).forEach(
@@ -110,15 +113,17 @@ function App() {
       {/* change the onClick prop to a memoized prop */}
       <NewBtn onClick={showDialog} />
       {isAddOpen && (
-        <NewStarModal
-          isOpen={isAddOpen}
-          onClose={() => setIsAddOpen(false)}
-          onAdd={(StarText) => {
-            addStar(Stars, StarText);
-            positionStars(Stars, width, height);
-            setStars(Stars);
-          }}
-        />
+        <Suspense fallback={<ModalLoader />}>
+          <NewStarModal
+            isOpen={isAddOpen}
+            onClose={() => setIsAddOpen(false)}
+            onAdd={(StarText) => {
+              addStar(Stars, StarText);
+              positionStars(Stars, width, height);
+              setStars(Stars);
+            }}
+          />
+        </Suspense>
       )}
     </div>
   );

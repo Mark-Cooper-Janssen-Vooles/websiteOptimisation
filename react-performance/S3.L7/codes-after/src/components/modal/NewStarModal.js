@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
-export function NewStarModal({ isOpen, onAdd, onClose }) {
+export default function NewStarModal({ isOpen, onAdd, onClose }) {
   const [StarText, setStarText] = useState("");
   const [isDone, setIsDone] = useState(false);
 

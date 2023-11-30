@@ -300,11 +300,40 @@ export const Info = React.memo(
 
 ### Lazy Loading Components
 
+- if there is a big file but our project is small OR when our project grows, we will have many files and dependencies in our project. Best practice means to lazy load - a quick and light screen to the client / user. 
+  - In the background download the bundles or heavy / expensive downloads / calls - do them in the background. show something to the user quick. t
+
+- Adding lazy loading:
+  - we've got a star in the top left which opens a modal and enables us to add a star. we want to make it that we don't download the dependencies/code for this modal until after the user has clicked it. we don't want to download it on page load - the user might not even use it! 
+  - if you want to lazy load, you need to use `default export`
+  - we then need to go to the parent component where we are using this (app.js) and get two more imports from react - `lazy` and `Suspense`.
+  - instead of importing like `import NewStarModal from '....'`, we now use `const NewStarModal = lazy(() => import('...'))`. 
+  - then where the component is used, we wrap it in suspense:
+  ````js
+  {isAddOpen && (
+    <Suspense>
+      <NewStarModal
+        isOpen={isAddOpen}
+        onClose={() => setIsAddOpen(false)}
+        onAdd={(StarText) => {
+          addStar(Stars, StarText);
+          positionStars(Stars, width, height);
+          setStars(Stars);
+        }}
+      />
+    </Suspense>
+  )}
+  ````
+  - you can check in the network tab, that when the add star button is clicked, there are resources downloaded 
+  - the interval from download time to seeing the modal, in some cases, could be long (slow internet speeds etc).
+    - we can use a fallback here. create something like this: 
+    `const ModalLoader = () => <div className="Modal-loader">Loading...</div>`
+    - in the Suspense area: `<Suspense fallback={<ModalLoader />}>`
+    - you can see it by using slow 3g in the network tab.
+
 ---
 
 NOTE: at end of this check out what dashboard.ui is doing - try to apply the principles, find a piece of code to demo as a tech sharing. 
-
-
 
 
 
