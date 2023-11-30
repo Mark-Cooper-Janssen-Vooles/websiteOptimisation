@@ -5,6 +5,7 @@ NOTE:
 - better to build and deliver an app, then when it works fine we optimise it
 
 Contents:
+- [Fix slow renders first](#fix-slow-renders-first)
 - [Info](#info)
 - [Wasted Renders](#wasted-renders)
   - Class components (PureComponent)
@@ -13,6 +14,16 @@ Contents:
   - Expensive Operations (useMemo hook)
   - Reducing Bundle Sizes (using production builds - webpack)
   - Lazy Loading Components
+---
+
+## Fix Slow Renders First
+
+https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render
+-  JavaScript is really fast at handling re-renders, so why would your app freeze up when getting them?
+  - your problem might be unnecessary re-renders, but it's more likely a problem with slow renders in general
+- How to fix slow renders:
+  - when you know what is slow - use the browsers profiling tools, start profiling, do the interaction, then stop profiling it 
+  - check what is taking the longest, try again with the profiler. try with reacts profiler too.
 
 ---
 
