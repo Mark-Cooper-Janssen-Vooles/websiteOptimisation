@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 export const Info = React.memo(
   function Info(props) {
     const [exapnded, setExpanded] = useState(false);
     const Stars = Object.values(props.Stars);
 
-    const distances = { max: 0, min: 1000 };
-    Stars.forEach((currentStar) => {
-      Stars.forEach((compareStar) => {
-        if (compareStar === currentStar) {
-          return;
-        }
-
-        distances.max = Math.max(
-          distances.max,
-          Math.max(Number(currentStar.age), Number(compareStar.age))
-        );
-        distances.min = Math.min(
-          distances.min,
-          Math.min(Number(currentStar.age), Number(compareStar.age))
-        );
+    const distances = useMemo(() => {
+      const distancesCalc = { max: 0, min: 1000 };
+      Stars.forEach((currentStar) => {
+        setTimeout(() => console.log('take awhile'), 2000)
+        Stars.forEach((compareStar) => {
+          if (compareStar === currentStar) {
+            return;
+          }
+  
+          distancesCalc.max = Math.max(
+            distancesCalc.max,
+            Math.max(Number(currentStar.age), Number(compareStar.age))
+          );
+          distancesCalc.min = Math.min(
+            distancesCalc.min,
+            Math.min(Number(currentStar.age), Number(compareStar.age))
+          );
+        });
       });
-    });
+      return distancesCalc
+    }, [Object.keys(Stars).length])
+
 
     const expandHandler = () => setExpanded(!exapnded);
 

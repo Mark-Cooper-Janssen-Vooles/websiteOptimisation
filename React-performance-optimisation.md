@@ -9,7 +9,7 @@ Contents:
 - [Wasted Renders](#wasted-renders)
   - Class components
   - function components
-- Bundle Size 
+- [Fixing Large Bundles and Expensive Operations Issues](#fixing-large-bundles-and-expensive-operations-issues) 
 - Expensive Operations 
 
 ---
@@ -168,3 +168,155 @@ Stars[newStar.id] = newStar;
 
 setStars({ ...Stars });
 ````
+
+---
+
+## Fixing Large Bundles and Expensive Operations Issues
+
+The most common part in react optimisation is dealing with wasted rerenders, but this is another issue. We can use catching and memoization.
+
+### Catching Expensive Operations 
+
+- catching expensive operation reusults after a heavy or intensive CPU operation
+- an example is in the info.js file, when expanding the info box we're re-rendering the entire component and 'heavy' processes (or expensive operation) like the stars.forEach (nested loop with a setTimeout) are being re-calculated every time, even though they are not needed to.
+- we're already using `React.memo` in this component - but we want to tell it in some cases not to re-calculate the expensive operation. 
+  - for doing this, we need to use another built-in hook from react, 'useMemo'.
+  - useMemo takes two arguments. the first one is a factory function that fires whenever something in the list of dependencies changes (similar to useEffect)
+    - the factory function needs to return something, i.e. in this case `distancesCalc` - so we pass it the expensive operation function, but make sure to return 
+    - the second argument is the list of dependencies, in this case we want it to be `Object.keys(Stars).length`
+
+- Before:
+````js
+export const Info = React.memo(
+  function Info(props) {
+    const [exapnded, setExpanded] = useState(false);
+    const Stars = Object.values(props.Stars);
+
+    const distances = { max: 0, min: 1000 }; // recalculated every time it re-renders 
+    Stars.forEach((currentStar) => {
+      setTimeout(() => console.log('take awhile'), 2000)
+      Stars.forEach((compareStar) => {
+        if (compareStar === currentStar) {
+          return;
+        }
+
+        distances.max = Math.max(
+          distances.max,
+          Math.max(Number(currentStar.age), Number(compareStar.age))
+        );
+        distances.min = Math.min(
+          distances.min,
+          Math.min(Number(currentStar.age), Number(compareStar.age))
+        );
+      });
+    });
+
+    const expandHandler = () => setExpanded(!exapnded);
+
+    return (
+      <div className={exapnded ? "bar" : "board"}>
+        <div>You have {Object.keys(props.Stars).length} stars!</div>
+        <div>Age of the oldest star: {distances.max}</div>
+        <div>Age of the youngest star: {distances.min}</div>
+        <span className="expand" onClick={expandHandler}>
+          ◤ ◥
+        </span>
+      </div>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      Object.keys(prevProps.Stars).length ===
+      Object.keys(nextProps.Stars).length
+    );
+  }
+);
+````
+
+- After: 
+````js
+export const Info = React.memo(
+  function Info(props) {
+    const [exapnded, setExpanded] = useState(false);
+    const Stars = Object.values(props.Stars);
+
+    const distances = useMemo(() => {
+      const distancesCalc = { max: 0, min: 1000 };
+      Stars.forEach((currentStar) => {
+        setTimeout(() => console.log('take awhile'), 2000)
+        Stars.forEach((compareStar) => {
+          if (compareStar === currentStar) {
+            return;
+          }
+  
+          distancesCalc.max = Math.max(
+            distancesCalc.max,
+            Math.max(Number(currentStar.age), Number(compareStar.age))
+          );
+          distancesCalc.min = Math.min(
+            distancesCalc.min,
+            Math.min(Number(currentStar.age), Number(compareStar.age))
+          );
+        });
+      });
+      return distancesCalc
+    }, [Object.keys(Stars).length])
+
+
+    const expandHandler = () => setExpanded(!exapnded);
+
+    return (
+      <div className={exapnded ? "bar" : "board"}>
+        <div>You have {Object.keys(props.Stars).length} stars!</div>
+        <div>Age of the oldest star: {distances.max}</div>
+        <div>Age of the youngest star: {distances.min}</div>
+        <span className="expand" onClick={expandHandler}>
+          ◤ ◥
+        </span>
+      </div>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      Object.keys(prevProps.Stars).length ===
+      Object.keys(nextProps.Stars).length
+    );
+  }
+);
+````
+
+
+
+---
+
+NOTE: at end of this check out what dashboard.ui is doing - try to apply the principles, find a piece of code to demo as a tech sharing. 
+
+
+
+
+
+In React, the React.memo function is a higher-order component (HOC) that memoizes a functional component, preventing unnecessary renders by memoizing the result based on the component's props. The second argument to React.memo is an optional comparison function that determines whether the props have changed and whether the component should re-render.
+
+Here's the syntax for React.memo:
+
+````js
+const MemoizedComponent = React.memo(MyComponent, (prevProps, nextProps) => {
+  // Return true if the props are equal (no re-render), or false if they are not equal (re-render).
+});
+````
+The second argument is a function that takes two parameters: prevProps and nextProps. It should return true if the props are considered equal and false if they are not. If the comparison function is not provided, React.memo performs a shallow equality check on the props by default.
+
+Here's an example without a custom comparison function:
+````js
+const MemoizedComponent = React.memo(MyComponent);
+````
+
+And an example with a custom comparison function:
+````js
+const MemoizedComponent = React.memo(MyComponent, (prevProps, nextProps) => {
+  // Custom logic to compare props
+  return prevProps.id === nextProps.id;
+});
+````
+
+In the second example, the memoization will depend only on the id prop, and the component will re-render only if the id prop changes.
